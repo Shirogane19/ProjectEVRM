@@ -1,0 +1,21 @@
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN"
+    "http://getahead.org/dwr/dwr30.dtd">
+
+<dwr>
+  <allow>
+  	<convert converter="bean" match="com.group4.util.*"/>
+    <create creator="new" javascript="StringUtil">
+      <param name="class" value="com.group4.util.StringUtil"/>
+    </create>
+    <create creator="new" javascript="RiskManagementDB">
+      <param name="class" value="com.group4.util.RiskManagementDB"/>
+    </create>
+    <create creator="new" javascript="EarnedValueDB">
+      <param name="class" value="com.group4.util.EarnedValueDB"/>
+    </create>
+    <create creator="new" javascript="ConnectionMongoDB">
+      <param name="class" value="com.group4.util.ConnectionMongoDB"/>
+    </create>
+  </allow>
+</dwr>

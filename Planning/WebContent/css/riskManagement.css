@@ -1,0 +1,26 @@
+ #bgimg {
+  	height: 100%;
+ 	width: 100%;
+ 	position: absolute;
+ 	top: 0;
+ 	left: 0; 
+ }
+ 
+  #bgimg .center{
+ 	position: absolute;
+	background-color: yellow;
+ 	width: 50%;
+  	margin: 0 auto;
+ }
+ 
+ .whiteBox{
+	margin: auto;
+    width: 60%;
+    height: 100%;
+    background-color: white;
+}
+
+.table{
+	top: 100px;
+	position: relative;
+}
