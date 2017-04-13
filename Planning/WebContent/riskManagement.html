@@ -1,28 +1,25 @@
-
-<div>
-	<div id="bgimg">
-		<div class="whiteBox">
-		 <button ng-click="test()">Test</button>
-			<div class="table">
-				<table class="table">
-					<thead>
-					      <tr>
-					        <th>Description</th>
-					        <th>Probability</th>
-					        <th>Impact</th>
-					        <th>Result</th>
-					      </tr>
-					</thead>
-					<tbody>
-					<tr ng-repeat="r in risks">
-						<td ng-click="edit($index)" ng-model="description" class="editText">{{r.description}}</td>
-						<td>{{r.probability}}</td>
-						<td>{{r.impact}}</td>
-						<td>{{r.impact * (r.probability * 0.1)}}</td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		</div>
-</div>
+			<div id="bgimg">
+				<div class="whiteBox">
+				 <button ng-click="test()">Test</button>
+					<div class="table">
+						<table class="table">
+							<thead>
+							      <tr>
+							        <th>Description</th>
+							        <th>Probability</th>
+							        <th>Impact</th>
+							        <th>Result</th>
+							      </tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="r in risks">
+								<td ng-click="editDescription($index)" ng-model="description" class="editDescription">{{r.description}}</td>
+								<td ng-click="editProbability($index)" ng-model="probability" class="editProbability">{{r.probability}}</td>
+								<td type="number">{{r.impact}}</td>
+								<td>{{r.impact * (r.probability * 0.1)}}</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+	  		</div>

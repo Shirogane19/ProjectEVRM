@@ -8,14 +8,14 @@
     <create creator="new" javascript="StringUtil">
       <param name="class" value="com.group4.util.StringUtil"/>
     </create>
+    <create creator="new" javascript="ProjectDB">
+      <param name="class" value="com.group4.util.ProjectDB"/>
+    </create>
     <create creator="new" javascript="RiskManagementDB">
       <param name="class" value="com.group4.util.RiskManagementDB"/>
     </create>
     <create creator="new" javascript="EarnedValueDB">
       <param name="class" value="com.group4.util.EarnedValueDB"/>
-    </create>
-    <create creator="new" javascript="ConnectionMongoDB">
-      <param name="class" value="com.group4.util.ConnectionMongoDB"/>
     </create>
   </allow>
 </dwr>
