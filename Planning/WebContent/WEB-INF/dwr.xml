@@ -5,6 +5,7 @@
 <dwr>
   <allow>
   	<convert converter="bean" match="com.group4.util.*"/>
+    
     <create creator="new" javascript="StringUtil">
       <param name="class" value="com.group4.util.StringUtil"/>
     </create>
