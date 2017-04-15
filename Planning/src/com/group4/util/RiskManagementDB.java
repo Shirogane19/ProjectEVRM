@@ -4,58 +4,82 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.java.mongo.Futbolista;
 import com.java.mongo.RiskManagement;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
 
 public class RiskManagementDB {
 	
+	static public MongoClient mongoClient;
+	static public DB db;
+	static public DBCollection collection;
+	
 	public static void addRiskManagement(){
-		RiskManagement riskManagement = new RiskManagement("project 1", new ArrayList<String>(Arrays.asList("riesgo 1")), new ArrayList<Double>(Arrays.asList(0.60)), new ArrayList<Integer>(Arrays.asList(4)));
 		
-		RiskManagement b = new RiskManagement();
-		//Object a = new Object();
-		
-		try {
+		try{
+			mongoClient = new MongoClient("localhost", 27017);
+			db = mongoClient.getDB("TestPlanning");
+			collection = db.getCollection("TestRiskManagement");
 			
-		// PASO 1: Conexi�n al Server de MongoDB Pasandole el host y el puerto
-			MongoClient mongoClient = new MongoClient("localhost", 27017);
-
-		// PASO 2: Conexi�n a la base de datos
-			DB db = mongoClient.getDB("TestPlanning");
-
-		// PASO 3: Obtenemos una coleccion para trabajar con ella
-			DBCollection collection = db.getCollection("TestRiskManagement");
-
-		// PASO 4: CRUD (Create-Read-Update-Delete)
-
-			// PASO 4.1: "CREATE" -> Metemos los objetos futbolistas (o documentos en Mongo) en la coleccion Futbolista
+			RiskManagement riskManagement = new RiskManagement("project 4", new ArrayList<String>(Arrays.asList("riesgo 1","riesgo2","riesgo3")),
+																			new ArrayList<String>(Arrays.asList("a","b","c")), 
+																			new ArrayList<Integer>(Arrays.asList(4,5,2)));
+			
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!! > "+ riskManagement.getProbability());
+			
 			collection.insert(riskManagement.toDBObjectProject());
-			
 			int numDocumentos = (int) collection.getCount();
-			
+			System.out.println("\nRiskManagement >>> Numero de documentos: "+numDocumentos);
+
+			// PASO FINAL: Cerrar la conexion
+			mongoClient.close();
+		}catch (UnknownHostException ex) {
+			System.out.println("Exception al conectar al server de Mongo: " + ex.getMessage());
+		}	
+
+	}
+	
+	public static BasicDBObject findByProject(String proj){
+		try{
+			mongoClient = new MongoClient("localhost", 27017);
+			db = mongoClient.getDB("TestPlanning");
+			collection = db.getCollection("TestRiskManagement");
+				
+			RiskManagement rm = new RiskManagement();
 			DBCursor cursor = collection.find();
 			
-			b = new RiskManagement((BasicDBObject) collection.findOne());
-			System.out.print("//////////////////////////////////////////// >>> :" + b.getRisks());
+			System.out.println("\nBuscar RiskManagement por proyecto");
 			
+			DBObject query = new BasicDBObject("project", new BasicDBObject("$regex", proj)); //$regex sirve para asignar capacidad al documento de leer Strings
+			cursor = collection.find(query);
 
-			/*// PASO 4.4: "DELETE" -> Borramos todos los futbolistas que sean internacionales (internacional = true)
-			DBObject findDoc = new BasicDBObject("internacional", true);
-			collection.remove(findDoc);*/
-
-		// PASO FINAL: Cerrar la conexion
+			try {
+				while (cursor.hasNext()) {
+					//System.out.println(cursor.next().toString());
+					rm = new RiskManagement((BasicDBObject) cursor.next());
+				}
+			} finally {
+				cursor.close();
+			}
+				
+			System.out.print("//////////////////////////////////////////// >>> :" + rm.getProbability());
+			cursor.close();
 			mongoClient.close();
-			
-			
-		} catch (UnknownHostException ex) {
-			System.out.println("Exception al conectar al server de Mongo: " + ex.getMessage());
-		}
-
+			return rm.toDBObjectProject();
+			}catch (UnknownHostException ex) {
+				System.out.println("Exception al conectar al server de Mongo: " + ex.getMessage());
+				return null;
+			}		
+	}
+	
+	public static void addRisk(){
+		
 	}
 
 	

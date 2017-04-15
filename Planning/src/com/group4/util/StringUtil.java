@@ -1,9 +1,7 @@
 package com.group4.util;
-
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 
 import com.java.mongo.Futbolista;
 import com.mongodb.BasicDBObject;
@@ -12,11 +10,10 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
-//import com.sun.java.util.jar.pack.Package.File;
 
 public class StringUtil {
 	
-	public static DBObject method(Map c){
+	public static void method(){
 		ArrayList<Futbolista> futbolistas = new ArrayList<Futbolista>();
 
 		futbolistas.add(new Futbolista("Iker", "Casillas", 33, new ArrayList<String>(Arrays.asList("Portero")), true));
@@ -25,14 +22,8 @@ public class StringUtil {
 		futbolistas.add(new Futbolista("Andrés", "Iniesta", 30, new ArrayList<String>(Arrays.asList("Centrocampista", "Delantero")), true));
 		futbolistas.add(new Futbolista("Fernando", "Torres", 30, new ArrayList<String>(Arrays.asList("Delantero")), true));
 		futbolistas.add(new Futbolista("Leo", " Baptistao", 22, new ArrayList<String>(Arrays.asList("Delantero")), false));
-		Futbolista b = new Futbolista();
-		//Object a = new Object();
-		
+
 		try {
-			//c.equals(a);
-			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~: " + c.values());
-			
-			
 		// PASO 1: Conexión al Server de MongoDB Pasandole el host y el puerto
 			MongoClient mongoClient = new MongoClient("localhost", 27017);
 
@@ -41,9 +32,6 @@ public class StringUtil {
 
 		// PASO 3: Obtenemos una coleccion para trabajar con ella
 			DBCollection collection = db.getCollection("Futbolistas");
-			b = new Futbolista((BasicDBObject) collection.findOne());
-			//b.equals(futbolista);
-			System.out.print("//////////////////////////////////////////// >>> :" + b);
 
 		// PASO 4: CRUD (Create-Read-Update-Delete)
 
@@ -57,29 +45,27 @@ public class StringUtil {
 			System.out.println("Número de documentos en la colección Futbolistas: " + numDocumentos + "\n");
 
 			// Busco todos los documentos de la colección y los imprimo
-//			DBCursor cursor = collection.find();
-//			try {
-//				while (cursor.hasNext()) {
-//					System.out.println(cursor.next().toString());
-//				}
-//			} finally {
-//				cursor.close();
-//			}
+			DBCursor cursor = collection.find();
+			try {
+				while (cursor.hasNext()) {
+					System.out.println(cursor.next().toString());
+				}
+			} finally {
+				cursor.close();
+			}
 
 			// PASO 4.2.2: "READ" -> Hacemos una Query con condiciones (Buscar Futbolistas que sean delanteros) y lo pasamos a un objeto Java
 			System.out.println("\nFutbolistas que juegan en la posición de Delantero");
 			DBObject query = new BasicDBObject("demarcacion", new BasicDBObject("$regex", "Delantero"));
-//			cursor = collection.find(query);
-//			try {
-//				while (cursor.hasNext()) {
-//					Futbolista futbolistaa = new Futbolista((BasicDBObject) cursor.next());
-//					System.out.println(futbolistaa.toString());
-//				}
-//			} finally {
-//				cursor.close();
-//			}
-			
-			
+			cursor = collection.find(query);
+			try {
+				while (cursor.hasNext()) {
+					Futbolista futbolista = new Futbolista((BasicDBObject) cursor.next());
+					System.out.println(futbolista.toString());
+				}
+			} finally {
+				cursor.close();
+			}
 
 			// PASO 4.3: "UPDATE" -> Actualizamos la edad de los jugadores. Sumamos 100 años a los jugadores que tengan mas de 30 años
 			DBObject find = new BasicDBObject("edad", new BasicDBObject("$gt", 30));
@@ -92,13 +78,9 @@ public class StringUtil {
 
 		// PASO FINAL: Cerrar la conexion
 			mongoClient.close();
-			
-			
+
 		} catch (UnknownHostException ex) {
 			System.out.println("Exception al conectar al server de Mongo: " + ex.getMessage());
 		}
-		
-		return b.toDBObjectFutbolista();
 	}
-
 }

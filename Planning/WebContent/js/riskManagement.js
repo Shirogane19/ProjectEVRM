@@ -81,7 +81,16 @@ angular.module('myApp.riskManagement', [])
 	});
 	
 	
-	$scope.test = function(){
+	$scope.findByProject = function(){
+		RiskManagementDB.findByProject("project 4", function(data){
+			var a = data.risks[3];
+			console.log(a);
+			var number = Number(a.replace(/[^0-9\.]+/g,""));
+			console.log(number);
+		});
+	}
+	
+	$scope.addRiskManagement = function(){
 		RiskManagementDB.addRiskManagement();
 	}
  
