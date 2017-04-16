@@ -32,7 +32,7 @@ angular.module('myApp.earnedValue', [])
 		var requestObject = { nombreProyecto: "solo bueno" };
 
 		EarnedValueDB.getCollection(requestObject, function(data){
-			//console.log(data);
+			console.log(data);
 			$scope.$apply(function(){
 				$scope.evs = data;
 				$scope.faseN = $scope.evs.length + 1;

@@ -1,24 +1,60 @@
 			<div id="bgimg">
 				<div class="whiteBox">
-				 <button ng-click="findByProject()">findByProject</button>
-				  <button ng-click="addRiskManagement()">addRiskManagement</button>
-					<div class="table">
+				
+					<h2>Cheng Pasar nombre del proyecto</h2>
+						
+					<div class="col-lg-6">
+					  	<form class="form-horizontal push-10-t push-10" name="RMForm">
+						    <div class="input-group">
+						      <input class="form-control" placeholder="Nuevo Riesgo" type="text" ng-model="inputRisk"required>
+						      <span class="input-group-btn">
+						        <button class="btn btn-default" type="submit"  ng-disabled="RMForm.$invalid" ng-click="insertRM()"><i class="fa fa-plus push-5-r"></i>Insertar Riesgo</button>
+						      </span>
+						    </div><!-- /input-group -->
+						</form>
+					  </div><!-- /.col-lg-6 -->
+					  
+					 <div class="table">
 						<table class="table">
 							<thead>
-							      <tr>
-							        <th>Description</th>
-							        <th>Probability</th>
-							        <th>Impact</th>
+								<tr>
+									<th>Number</th>
+									<th>Description</th>
+									<th>Probability</th>
+									<th>Impact</th>
 							        <th>Result</th>
-							      </tr>
+							   </tr>
 							</thead>
 							<tbody>
-							<tr ng-repeat="r in risks">
-								<td ng-click="editDescription($index)" ng-model="description" class="editDescription">{{r.description}}</td>
-								<td ng-click="editProbability($index)" ng-model="probability" class="editProbability">{{r.probability}}</td>
-								<td type="number">{{r.impact}}</td>
-								<td>{{r.impact * (r.probability * 0.1)}}</td>
-							</tr>
+								<form name="Form">
+									<tr ng-repeat="r in risks">
+										<td>{{r.numR}}</td>
+										<td ng-click="editMode = true">
+											<span id="r.description" ng-if="!editMode">{{r.description}}</span>
+											<span ng-if="editMode">
+									        	<input class="form-control" type="text submit" ng-disabled="Form.$invalid" ng-model="r.description" ng-keydown="$event.which === 13 && updateRM(r)"> 
+									     	<span>
+										</td>
+										<td ng-click="editMode = true">
+											<span id="r.probability" ng-if="!editMode">{{r.probability}}</span>
+											<span ng-if="editMode">
+									        	<input class="form-control" type="text submit" ng-disabled="Form.$invalid" string-to-number ng-model="r.probability" min="1" max="2" ng-keydown="$event.which === 13 && updateRM(r)"> 
+									     	<span>
+									     </td>
+										<td ng-click="editMode = true" type="number">
+											<span id="r.impact" ng-if="!editMode">{{r.impact}}</span>
+											<span ng-if="editMode">
+									        	<input class="form-control" type="text submit" ng-disabled="Form.$invalid" string-to-number ng-model="r.impact" min="1" max="2" ng-keydown="$event.which === 13 && updateRM(r)"> 
+									     	<span>
+										</td>
+										<td>
+											<span>{{r.impact * (r.probability)}}</span>
+										</td>
+										<td ng-click="reload()">
+											<span ng-if="editMode" class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+										</td>
+									</tr>
+								</form>
 							</tbody>
 						</table>
 					</div>

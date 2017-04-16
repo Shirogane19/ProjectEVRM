@@ -2,9 +2,9 @@ package com.group4.util;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
-import com.java.mongo.Futbolista;
 import com.java.mongo.RiskManagement;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -16,72 +16,116 @@ import com.mongodb.MongoClient;
 
 public class RiskManagementDB {
 	
-	static public MongoClient mongoClient;
-	static public DB db;
-	static public DBCollection collection;
+	MongoClient mongoClient;
+	DB db;
+	DBCollection RMcollection;
 	
-	public static void addRiskManagement(){
+	//-----------------------------------------
+	private void initMongoDB(){
 		
 		try{
-			mongoClient = new MongoClient("localhost", 27017);
-			db = mongoClient.getDB("TestPlanning");
-			collection = db.getCollection("TestRiskManagement");
-			
-			RiskManagement riskManagement = new RiskManagement("project 4", new ArrayList<String>(Arrays.asList("riesgo 1","riesgo2","riesgo3")),
-																			new ArrayList<String>(Arrays.asList("a","b","c")), 
-																			new ArrayList<Integer>(Arrays.asList(4,5,2)));
-			
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!! > "+ riskManagement.getProbability());
-			
-			collection.insert(riskManagement.toDBObjectProject());
-			int numDocumentos = (int) collection.getCount();
-			System.out.println("\nRiskManagement >>> Numero de documentos: "+numDocumentos);
-
-			// PASO FINAL: Cerrar la conexion
-			mongoClient.close();
-		}catch (UnknownHostException ex) {
-			System.out.println("Exception al conectar al server de Mongo: " + ex.getMessage());
-		}	
-
-	}
-	
-	public static BasicDBObject findByProject(String proj){
-		try{
-			mongoClient = new MongoClient("localhost", 27017);
-			db = mongoClient.getDB("TestPlanning");
-			collection = db.getCollection("TestRiskManagement");
-				
-			RiskManagement rm = new RiskManagement();
-			DBCursor cursor = collection.find();
-			
-			System.out.println("\nBuscar RiskManagement por proyecto");
-			
-			DBObject query = new BasicDBObject("project", new BasicDBObject("$regex", proj)); //$regex sirve para asignar capacidad al documento de leer Strings
-			cursor = collection.find(query);
-
-			try {
-				while (cursor.hasNext()) {
-					//System.out.println(cursor.next().toString());
-					rm = new RiskManagement((BasicDBObject) cursor.next());
-				}
-			} finally {
-				cursor.close();
+			if(mongoClient == null){
+				mongoClient = new MongoClient("localhost", 27017);
+				db = mongoClient.getDB("TestProjectRM");
+				//db.getCollection("TestRiskManagement2").drop(); //Borrar collection
+				System.out.println("Estoy iniciando mongo");
+			}else{
+				System.out.println("ya esta iniciado mongo");
 			}
-				
-			System.out.print("//////////////////////////////////////////// >>> :" + rm.getProbability());
-			cursor.close();
-			mongoClient.close();
-			return rm.toDBObjectProject();
-			}catch (UnknownHostException ex) {
-				System.out.println("Exception al conectar al server de Mongo: " + ex.getMessage());
-				return null;
-			}		
-	}
-	
-	public static void addRisk(){
+			
+		} catch (UnknownHostException ex) {
+			System.out.println("Exception al conectar al server de Mongo: " + ex.getMessage());
+		}
 		
 	}
+	//-----------------------------------------
+	public Boolean insert(Map data){
+			
+		initMongoDB();
+			
+		RMcollection = db.getCollection("TestRiskManagement2");
+			
+		RiskManagement rm = new RiskManagement(data.get("numR").toString(), 
+											data.get("description").toString(), 
+											data.get("probability").toString(), 
+											data.get("impact").toString(), 
+											data.get("nameProject").toString()	);
+			
+			System.out.println("insert: " + rm.getNumR() + rm.getDescription() + rm.getProbability() + rm.getImpact() + rm.getProject());
+			System.out.println("1: " + rm.toDBObjectRiskManagement());
+			
+		try{
+			RMcollection.insert(rm.toDBObjectRiskManagement());
+		} catch (Exception ex) {
+			System.out.println("Exception al insertar al server de Mongo: " + ex.getMessage());
+			return false;
+		}
+			
+		return true;
+		}
+	//-----------------------------------------
+	public Boolean save(Map data){
+		
+		initMongoDB();
+		
+		System.out.println("save: " + data.get("numR").toString() + "save: "+data.get("nameProject"));
+		
+		RMcollection = db.getCollection("TestRiskManagement2");
+		
+		BasicDBObject query = new BasicDBObject();
+		
+		List<BasicDBObject> parts = new ArrayList<BasicDBObject>();
+		
+		parts.add(new BasicDBObject("numR", data.get("numR").toString()));
+		parts.add(new BasicDBObject("nameProject", data.get("nameProject").toString()));
+		query.put("$and", parts);
+		
+		//System.out.println("query: " + query);
+		
+		RiskManagement rm = new RiskManagement(	data.get("numR").toString(), 
+												data.get("description").toString(), 
+												data.get("probability").toString(), 
+												data.get("impact").toString(), 
+												data.get("nameProject").toString()	);
 
+		
+		try{
+			RMcollection.update(query, rm.toDBObjectRiskManagement());
+		} catch (Exception ex) {
+			System.out.println("Exception al actualizar los datos: " + ex.getMessage());
+			return false;
+		}
+		
+		return true;
+	}
+	//-----------------------------------------
+	public List<BasicDBObject> getCollection(Map data){
+		
+		initMongoDB();
+		
+		List<BasicDBObject> list = new ArrayList<BasicDBObject>();
+		
+		RMcollection = db.getCollection("TestRiskManagement2");
+		
+		DBObject query = new BasicDBObject( "nameProject", data.get("nameProject") );
+		
+		DBCursor cursor = RMcollection.find(query);
+		
+		RiskManagement rmObject = null;
+		
+		try {
+			while (cursor.hasNext()) {
+				rmObject = new RiskManagement((BasicDBObject) cursor.next());
+				list.add(rmObject.toDBObjectRiskManagement());
+			}
+		} finally {
+			cursor.close();
+		}
+		
+		//System.out.println("List: " + list);
+		
+		return list;
+	}
 	
 }
 
