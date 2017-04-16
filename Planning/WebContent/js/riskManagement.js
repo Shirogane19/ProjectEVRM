@@ -13,7 +13,7 @@ angular.module('myApp.riskManagement', [])
 
 		console.log("insertRM :"+$scope.inputRisk);
 
-		var rmObject = { numR: $scope.numR, description: $scope.inputRisk, probability: "50", impact: "50", nameProject: "project 5" };
+		var rmObject = { numR: $scope.numR, description: $scope.inputRisk, probability: "50", impact: "3", nameProject: "project 5" };
 
 		RiskManagementDB.insert(rmObject, function(data){
 			//console.log(data);
@@ -48,7 +48,7 @@ angular.module('myApp.riskManagement', [])
 			
 		console.log("UpdateRM :"+r.description);
 		
-		//r.description = $scope.validateValue(r.description);
+		//ger.description = $scope.validateValue(r.description);
 		r.probability = $scope.validateValue(r.probability);
 		r.impact = $scope.validateValue(r.impact);
 
@@ -60,18 +60,30 @@ angular.module('myApp.riskManagement', [])
 		});
 
 	}///
-	
-    // Queda por hacer el color
-    
+	 ///-------------------------------------------------------------
+    $scope.calcular = function(prob, imp){
+    	return ((prob*0.01)*imp);
+    }
+    $scope.generateColor = function(value){
+    	if(value > (4.95/3)*2){
+    		return "red";
+    	}else{
+    		if(value >= (4.95/3)){
+    			return "orange";
+    		}else{
+    			return "green";
+    		}
+    	}
+    }
     ///-------------------------------------------------------------
     $scope.validateValue = function(value){
     	if(value.length === 0 || value === "null" || isNaN(parseFloat(value))){
-			return 0;
+			return 1;
 		}else{
 			if(value.length === parseFloat(value).toString().length){
 				return parseFloat(value);
 			}else{
-				return 0;
+				return 1;
 			}
 		}
     }
