@@ -30,19 +30,19 @@
 						<form name="Form">
 							<tr ng-repeat="r in risks">
 								<td width="10%">{{r.numR}}</td>
-								<td ng-click="editMode = true" width="40%">
+								<td ng-click="editMode = true" width="50%">
 									<span id="r.description" ng-if="!editMode">{{r.description}}</span>
 									<span ng-if="editMode">
-										<input class="form-control" type="text submit" ng-disabled="Form.$invalid" ng-model="r.description" ng-keydown="$event.which === 13 && updateRM(r)"> 
+										<input class="form-control" type="text submit" ng-disabled="Form.$invalid" ng-model="r.description" maxlength="100" ng-keydown="$event.which === 13 && updateRM(r)"> 
 									<span>
 								</td>
-								<td ng-click="editMode = true" width="20%">
+								<td ng-click="editMode = true" width="15%">
 									<span id="r.probability" ng-if="!editMode">{{r.probability}}%</span>
 									<span ng-if="editMode">
 										<rzslider rz-slider-model="r.probability" rz-slider-options="slider_toggle1.options" ng-keydown="$event.which === 13 && updateRM(r)"></rzslider>
 									<span>
 								</td>
-								<td ng-click="editMode = true" type="number" width="20%">
+								<td ng-click="editMode = true" type="number" width="15%">
 									<span id="r.impact" ng-if="!editMode">{{r.impact}}</span>
 									<span ng-if="editMode">
 										<rzslider rz-slider-model="r.impact" rz-slider-options="slider_toggle.options" ng-keydown="$event.which === 13 && updateRM(r)"></rzslider>
