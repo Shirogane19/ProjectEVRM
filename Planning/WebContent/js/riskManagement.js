@@ -8,12 +8,27 @@ angular.module('myApp.riskManagement', [])
 	$scope.inputRisk;
 	$scope.numR; //numero de riesgos
 	
+	 
+	  $scope.slider_toggle = {
+	    options: {
+	      floor: 1,
+	      ceil: 5
+	    }
+	  };
+	  
+	  $scope.slider_toggle1 = {
+			    options: {
+			      floor: 1,
+			      ceil: 99
+			    }
+			  };
+	
 	///-------------------------------------------------------------
 	$scope.insertRM = function(){
 
 		console.log("insertRM :"+$scope.inputRisk);
 
-		var rmObject = { numR: $scope.numR, description: $scope.inputRisk, probability: "50", impact: "3", nameProject: "project 5" };
+		var rmObject = { numR: $scope.numR, description: $scope.inputRisk, probability: "99", impact: "3", nameProject: "project 5" };
 
 		RiskManagementDB.insert(rmObject, function(data){
 			//console.log(data);
@@ -42,15 +57,12 @@ angular.module('myApp.riskManagement', [])
 	}///
 	///-------------------------------------------------------------
 	$scope.updateRM = function(r){
-
-		console.log("UpdateRM");
-
-			
+		
 		console.log("UpdateRM :"+r.description);
 		
 		//ger.description = $scope.validateValue(r.description);
-		r.probability = $scope.validateValue(r.probability);
-		r.impact = $scope.validateValue(r.impact);
+		//r.probability = $scope.validateValue(r.probability);
+		//r.impact = $scope.validateValue(r.impact);
 
 		var objectToUpdate = { numR: r.numR, description: r.description, probability: r.probability, impact: r.impact, nameProject: r.nameProject };
 
@@ -62,7 +74,7 @@ angular.module('myApp.riskManagement', [])
 	}///
 	 ///-------------------------------------------------------------
     $scope.calcular = function(prob, imp){
-    	return ((prob*0.01)*imp);
+    	return ((prob*0.01)*imp).toFixed(2);
     }
     $scope.generateColor = function(value){
     	if(value > (4.95/3)*2){
