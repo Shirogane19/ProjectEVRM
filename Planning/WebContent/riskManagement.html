@@ -1,64 +1,51 @@
-<div>
-	<div id="bgimg">
-		<div class="whiteBox">
-			<h2>Cheng Pasar nombre del proyecto</h2>
-			<hr>
-			<div class="col-lg-10">
-				<form class="form-horizontal push-10-t push-10" name="RMForm">
-					<div class="input-group">
-						<input class="form-control" placeholder="New Risk" type="text" ng-model="inputRisk"required>
-						<span class="input-group-btn">
-						<button class="btn btn-default" type="submit"  ng-disabled="RMForm.$invalid" ng-click="insertRM()"><i class="fa fa-plus push-5-r"></i>Insert Risk</button>
-						</span>
-					</div>
-					<!-- /input-group -->
-				</form>
-			</div>
-			<!-- /.col-lg-6 -->
-			<div>
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Number</th>
-							<th>Description</th>
-							<th>Probability</th>
-							<th>Impact</th>
-							<th>Result</th>
-						</tr>
-					</thead>
-					<tbody>
-						<form name="Form">
-							<tr ng-repeat="r in risks">
-								<td width="10%">{{r.numR}}</td>
-								<td ng-click="editMode = true" width="50%">
-									<span id="r.description" ng-if="!editMode">{{r.description}}</span>
-									<span ng-if="editMode">
-										<input class="form-control" type="text submit" ng-disabled="Form.$invalid" ng-model="r.description" maxlength="100" ng-keydown="$event.which === 13 && updateRM(r)"> 
-									<span>
-								</td>
-								<td ng-click="editMode = true" width="15%">
-									<span id="r.probability" ng-if="!editMode">{{r.probability}}%</span>
-									<span ng-if="editMode">
-										<rzslider rz-slider-model="r.probability" rz-slider-options="slider_toggle1.options" ng-keydown="$event.which === 13 && updateRM(r)"></rzslider>
-									<span>
-								</td>
-								<td ng-click="editMode = true" type="number" width="15%">
-									<span id="r.impact" ng-if="!editMode">{{r.impact}}</span>
-									<span ng-if="editMode">
-										<rzslider rz-slider-model="r.impact" rz-slider-options="slider_toggle.options" ng-keydown="$event.which === 13 && updateRM(r)"></rzslider>
-									<span>
-								</td>
-								<td width="10%">
-									<span ng-style='{color: generateColor(calcular(r.probability,r.impact))}' min="1" max="2">{{calcular(r.probability,r.impact)}}</span>
-								</td>
-								<td ng-click="reload()">
-									<span ng-if="editMode" class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-								</td>
-							</tr>
-						</form>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
+
+      	<div class="blueBox">
+	         <h5 class="display-1">Proyecto 1</h5>
+	         <div class="main-fab">
+      			<md-button class="md-fab md-accent" ng-click="insertRM()">+</md-button>
+    		</div>
+    	</div>
+    		
+	         <div class="whiteBox" layout="column">
+	            <table class="table table-hover">
+	               <thead class="">
+	                  <tr>
+	                     <th>Number</th>
+	                     <th>Description</th>
+	                     <th>Probability</th>
+	                     <th>Impact</th>
+	                     <th>Result</th>
+	                  </tr>
+	               </thead>
+
+	               <tbody>
+	                  <tr ng-repeat="r in risks">
+	                     <td width="10%">{{r.numR}}</td>
+	                     <td ng-click="editMode = true" width="40%">
+	                        <span id="r.description" ng-if="!editMode">{{r.description}}</span>
+	                        <span ng-if="editMode">
+	                        <input class="form-control" type="text submit" ng-disabled="Form.$invalid" placeholder="insert description" ng-model="r.description" maxlength="100" ng-keydown="$event.which === 13 && updateRM(r)"> 
+	                        <span>
+	                     </td>
+	                     <td ng-click="editMode = true" width="15%">
+	                        <span id="r.probability" ng-if="!editMode">{{r.probability}}%</span>
+	                        <span ng-if="editMode">
+	                        <rzslider rz-slider-model="r.probability" rz-slider-options="slider_toggle1.options" ng-keydown="$event.which === 13 && updateRM(r)"></rzslider>
+	                        <span>
+	                     </td>
+	                     <td ng-click="editMode = true" type="number" width="15%">
+	                        <span id="r.impact" ng-if="!editMode">{{r.impact}}</span>
+	                        <span ng-if="editMode">
+	                        <rzslider rz-slider-model="r.impact" rz-slider-options="slider_toggle.options" ng-keydown="$event.which === 13 && updateRM(r)"></rzslider>
+	                        <span>
+	                     </td>
+	                     <td width="10%">
+	                        <span ng-style='{color: generateColor(calcular(r.probability,r.impact))}' min="1" max="2">{{calcular(r.probability,r.impact)}}</span>
+	                     </td>
+	                     <td ng-click="reload()">
+	                        <span ng-if="editMode" class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+	                     </td>
+	                  </tr>
+	               </tbody>
+	            </table>
+	         </div>

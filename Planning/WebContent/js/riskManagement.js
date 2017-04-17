@@ -26,7 +26,7 @@ angular.module('myApp.riskManagement', ['ngMaterial'])
 	///-------------------------------------------------------------
 	$scope.insertRM = function(){
 
-		console.log("insertRM :"+$scope.inputRisk);
+		$scope.inputRisk = "";
 
 		var rmObject = { numR: $scope.numR, description: $scope.inputRisk, probability: "99", impact: "3", nameProject: "project 5" };
 
