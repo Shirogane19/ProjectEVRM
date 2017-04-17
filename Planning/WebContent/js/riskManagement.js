@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.riskManagement', [])
+angular.module('myApp.riskManagement', ['ngMaterial'])
 
 .controller('riskManagementViewCtrl', ['$scope','$state','$timeout','$sce', function($scope,$state,$timeout,$sce) {
 	

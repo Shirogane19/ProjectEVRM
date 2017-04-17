@@ -7,6 +7,7 @@ angular.module('myApp', [
   'myApp.riskManagement',
   'myApp.projects',
   'rzModule',
+  'ngMaterial'
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {

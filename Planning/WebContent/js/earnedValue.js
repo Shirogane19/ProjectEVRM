@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.earnedValue', [])
+angular.module('myApp.earnedValue', ['ngMaterial'])
 
 .controller('earnedValueViewCtrl', ['$scope','$state','$timeout', '$sce', function($scope,$state,$timeout,$sce) {
 
