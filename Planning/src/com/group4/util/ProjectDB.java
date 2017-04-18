@@ -29,8 +29,8 @@ public class ProjectDB {
 		try{
 			if(mongoClient == null){
 				mongoClient = new MongoClient("localhost", 27017);
-				db = mongoClient.getDB("TestProject");
-//				db.getCollection("projects").drop();
+				db = mongoClient.getDB("Project");
+				//db.getCollection("projects").drop();
 
 				//System.out.println("EStoy iniciando mongo");
 			}else{

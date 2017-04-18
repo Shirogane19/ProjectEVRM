@@ -26,7 +26,7 @@ public class RiskManagementDB {
 		try{
 			if(mongoClient == null){
 				mongoClient = new MongoClient("localhost", 27017);
-				db = mongoClient.getDB("TestProjectRM");
+				db = mongoClient.getDB("ProjectRM");
 				//db.getCollection("TestRiskManagement2").drop(); //Borrar collection
 				//System.out.println("Estoy iniciando mongo");
 			}else{

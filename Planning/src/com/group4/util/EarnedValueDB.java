@@ -27,7 +27,7 @@ public class EarnedValueDB {
 		try{
 			if(mongoClient == null){
 				mongoClient = new MongoClient("localhost", 27017);
-				db = mongoClient.getDB("TestProjectEV");
+				db = mongoClient.getDB("ProjectEV");
 				//db.getCollection("earnedValues").drop(); //Borrar collection
 				//System.out.println("EStoy iniciando mongo");
 			}else{
