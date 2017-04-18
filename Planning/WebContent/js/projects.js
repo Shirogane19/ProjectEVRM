@@ -35,7 +35,8 @@ angular.module('myApp.projects', ['ngStorage'])
 				var pjtObject = { name: nuevoProyecto };
 				ProjectDB.insert(pjtObject, function(data){
 					$scope.getAllProject();
-					$scope.agregar = "";
+					//$scope.agregar = "";
+					$scope.nuevoProyecto = "";
 					$scope.projectRepeat = false;
 				});
 			}

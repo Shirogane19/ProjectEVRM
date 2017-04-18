@@ -32,9 +32,9 @@ public class ProjectDB {
 				db = mongoClient.getDB("TestProject");
 //				db.getCollection("projects").drop();
 
-				System.out.println("EStoy iniciando mongo");
+				//System.out.println("EStoy iniciando mongo");
 			}else{
-				System.out.println("ya esta iniciado mongo");
+				//System.out.println("ya esta iniciado mongo");
 			}
 			
 		} catch (UnknownHostException ex) {

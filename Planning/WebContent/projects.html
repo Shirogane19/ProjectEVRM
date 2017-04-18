@@ -1,33 +1,93 @@
-<div ng-controller="ctrl1">
-	<div class="blueBox">
-		<h5 class="display-1">Welcome to planning</h5>
-	</div>
-		<div class="project">
-			<br/>
-			<label>Project: </label>
-			<input type="text" ng-model="nuevoProyecto" maxlength="100" placeholder="New project name..." />
-			<button class="btn btn-success" type="submit" ng-click="insertProject(nuevoProyecto)">New project</button><br/><br/>
-			<label>Search project: </label>
-			<input type="text" ng-model="busqueda" maxlength="100" placeholder="Search..."/><br/>
-			<label ng-show="projectRepeat" class="msjProjectExist">The project is already exist</label>
+<div class="blueBox">
+	<h5 class="display-1">Welcome to Planning</h5>
+
+	<form class="form-horizontal push-10-t push-10" name="EVForm">
+
+		<div class="main-fab">
+			<md-button class="md-fab md-accent" type="submit"  ng-disabled="EVForm.$invalid" ng-click="insertProject(nuevoProyecto)"><span class="glyphicon glyphicon-plus"></span></md-button>
 		</div>
-		<div class="tableHeadStyle">
-			<table class="table table-hover">
-				<thead class="">
-					<tr>
-					    <th>Project's name's</th>
-					</tr>
-				</thead>
-					<tbody class="tableStyle">
-						<tr ng-repeat="p in pjt | filter: busqueda">
-							<td class="tdStyle">{{p.name}}</td>
-							<td><button type="button" ng-click="seleccionar(p.name)" class="btn-primary btn selection">Select project</button></td>
-						</tr>	
-					</tbody>
-			</table>
+
+
+		<div class="row">
+
+		  <div class="col-xs-6 col-sm-3"></div>
+
+		  <div class="col-xs-6 col-sm-3">
+
+		      <input type="text" class="form-control" ng-model="nuevoProyecto" maxlength="100" placeholder="New project name..." required>
+			
+		  </div>
+
+		  <div class="clearfix visible-xs-block"></div>
+
+		  <div class="col-xs-6 col-sm-3">
+		  	<input class="form-control" type="text" ng-model="busqueda" maxlength="100" placeholder="Search..."/>
+		  </div>
+
+		  <div class="col-xs-6 col-sm-3"></div>
+
 		</div>
-		<div ng-show="evrm">
-			<a class = "btns1 btn btn-default" role="button" ui-sref="riskManagementView">Risk Management</a>
-			<a ng-click="validate()" class = "btns2 btn btn-default" role="button" ui-sref="earnedView">Earned Value</a>
-		</div>
+
+	</form>
+
 </div>
+
+<!-- <div class="project">
+	<br/>
+	<label>Project: </label>
+	<input type="text" ng-model="nuevoProyecto" maxlength="100" placeholder="New project name..." />
+	<button class="btn btn-success" type="submit" ng-click="insertProject(nuevoProyecto)">New project</button><br/><br/>
+	<label>Search project: </label>
+	<input type="text" ng-model="busqueda" maxlength="100" placeholder="Search..."/><br/>
+	<label ng-show="projectRepeat" class="msjProjectExist">The project is already exist</label>
+</div> -->
+
+
+<!-- <div class="tableHeadStyle">
+	<table class="table table-hover">
+		<thead class="">
+			<tr>
+			    <th>Project's name's</th>
+			</tr>
+		</thead>
+			<tbody class="tableStyle">
+				<tr ng-repeat="p in pjt | filter: busqueda">
+					<td class="tdStyle">{{p.name}}</td>
+					<td><button type="button" ng-click="seleccionar(p.name)" class="btn-primary btn selection">Select project</button></td>
+				</tr>	
+			</tbody>
+	</table>
+</div>
+<div ng-show="evrm">
+	<a class = "btns1 btn btn-default" role="button" ui-sref="riskManagementView">Risk Management</a>
+	<a ng-click="validate()" class = "btns2 btn btn-default" role="button" ui-sref="earnedView">Earned Value</a>
+</div> -->
+
+<div class="whiteBox" layout="column">
+
+	<table class="table table-hover">
+
+		<thead>
+		      <tr>
+		      		<th>Project's name's</th>
+		      		<th>|</th>
+		      		<th>Risk Management </th>
+		      		<th>Earned Value </th>
+		      </tr>
+		</thead>
+
+		<tbody>
+			<tr ng-repeat="p in pjt | filter: busqueda">
+				<td class="tdStyle">{{p.name}}</td>
+				<th>|</th>
+				<td ng-click="seleccionar(p.name)"><span class="glyphicon glyphicon glyphicon-fire" aria-hidden="true" ui-sref="riskManagementView"></span></td>
+				<td ng-click="seleccionar(p.name)"><span class="glyphicon glyphicon glyphicon-piggy-bank" aria-hidden="true" ui-sref="earnedView"></span></td>
+			</tr>	
+		</tbody>
+
+		<tbody>
+
+	</table>
+
+</div>
+

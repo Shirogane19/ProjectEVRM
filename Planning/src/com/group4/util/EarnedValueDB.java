@@ -29,9 +29,9 @@ public class EarnedValueDB {
 				mongoClient = new MongoClient("localhost", 27017);
 				db = mongoClient.getDB("TestProjectEV");
 				//db.getCollection("earnedValues").drop(); //Borrar collection
-				System.out.println("EStoy iniciando mongo");
+				//System.out.println("EStoy iniciando mongo");
 			}else{
-				System.out.println("ya esta iniciado mongo");
+				//System.out.println("ya esta iniciado mongo");
 			}
 			
 		} catch (UnknownHostException ex) {

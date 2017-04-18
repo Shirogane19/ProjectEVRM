@@ -28,9 +28,9 @@ public class RiskManagementDB {
 				mongoClient = new MongoClient("localhost", 27017);
 				db = mongoClient.getDB("TestProjectRM");
 				//db.getCollection("TestRiskManagement2").drop(); //Borrar collection
-				System.out.println("Estoy iniciando mongo");
+				//System.out.println("Estoy iniciando mongo");
 			}else{
-				System.out.println("ya esta iniciado mongo");
+				//System.out.println("ya esta iniciado mongo");
 			}
 			
 		} catch (UnknownHostException ex) {
@@ -51,8 +51,8 @@ public class RiskManagementDB {
 											data.get("impact").toString(), 
 											data.get("nameProject").toString()	);
 			
-			System.out.println("insert: " + rm.getNumR() + rm.getDescription() + rm.getProbability() + rm.getImpact() + rm.getProject());
-			System.out.println("1: " + rm.toDBObjectRiskManagement());
+			//System.out.println("insert: " + rm.getNumR() + rm.getDescription() + rm.getProbability() + rm.getImpact() + rm.getProject());
+			//System.out.println("1: " + rm.toDBObjectRiskManagement());
 			
 		try{
 			RMcollection.insert(rm.toDBObjectRiskManagement());
@@ -68,7 +68,7 @@ public class RiskManagementDB {
 		
 		initMongoDB();
 		
-		System.out.println("save: " + data.get("numR").toString() + "save: "+data.get("nameProject"));
+		//System.out.println("save: " + data.get("numR").toString() + "save: "+data.get("nameProject"));
 		
 		RMcollection = db.getCollection("TestRiskManagement2");
 		
