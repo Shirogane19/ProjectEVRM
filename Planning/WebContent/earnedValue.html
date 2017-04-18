@@ -1,98 +1,90 @@
-<div>
-	<div id="bgimg">
-		<div class="whiteBox">
+<div class="blueBox"> 
 
-			<h2>{{name}}</h2>
+     <h5 class="display-1">{{name}}</h5>
 
-			<hr>
-			  
-			  <div class="col-lg-6">
-			  	<form class="form-horizontal push-10-t push-10" name="EVForm">
-				    <div class="input-group">
-				      <input class="form-control" placeholder="Valor planeado" type="number" min="1" max="99999999" ng-model="inputPV"required>
-				      <span class="input-group-btn">
-				        <button class="btn btn-default" type="submit"  ng-disabled="EVForm.$invalid" ng-click="insertEV()"><i class="fa fa-plus push-5-r"></i>Insertar fase</button>
-				      </span>
-				    </div><!-- /input-group -->
-				</form>
-			  </div><!-- /.col-lg-6 -->
+     <form class="form-horizontal push-10-t push-10" name="EVForm">
 
-			<!-- <button ng-click="insertEV()">Insert</button>
-			<button ng-click="getAllEarnedValue()">Get All</button>-->
-
-			<div>
-				<table class="table">
-
-					<thead>
-					      <tr>
-					        <th>Fase</th>
-					        <th>|</th>
-					        <th>PV</th>
-					        <th>AC</th>
-					        <th>EV (%)</th>
-					        <th></th>
-					        <th>|</th>
-					        <th>EV</th>
-					        <th>CV</th>
-					        <th>SV</th>
-					        <th>|</th>
-					        <th>CPI</th>
-					        <th>SPI</th>
-
-					      </tr>
-					</thead>
-					<tbody>
-
-						<form name="Form">
-
-							<tr ng-repeat="e in evs">
-								<td>{{e.fase}}</td>
-
-								<th>|</th>
-
-								<td  ng-click="editMode = true">
-								     <span id="e.pv" ng-if="!editMode">{{ e.pv }}</span>
-								     <span ng-if="editMode">
-								        <input class="form-control" type="number submit" ng-disabled="Form.$invalid" string-to-number ng-model="e.pv" maxlength="8" ng-keydown="$event.which === 13 && updateEV(e)"> 
-								     <span>
-								</td>
-
-								<td  ng-click="editMode = true">
-								     <span id="e.av" ng-if="!editMode">{{ e.av }}</span>
-								     <span ng-if="editMode">
-								        <input class="form-control" type="number submit" ng-disabled="Form.$invalid" string-to-number ng-model="e.av" maxlength="8" ng-keydown="$event.which === 13 && updateEV(e)"> 
-								     <span>
-								</td>
-
-								<td  ng-click="editMode = true">
-								     <span id="e.porcentajeEV" ng-if="!editMode">{{ e.porcentajeEV }}</span>
-								     <span ng-if="editMode">
-								        <input class="form-control" type="number submit" ng-disabled="Form.$invalid" string-to-number ng-model="e.porcentajeEV" maxlength="3" max="100" ng-keydown="$event.which === 13 && updateEV(e)"> 
-								     <span>
-								</td>
-
-								<td ng-click="reload()">
-									<span ng-if="editMode" class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-								</td>
-
-								<td>|</td>
-
-								<td>{{calcularEV(e.pv,e.porcentajeEV)}}</td>
-								<td ng-style='{color: generateColor(calcularCV(e.pv,e.porcentajeEV,e.av))}'>{{calcularCV(e.pv,e.porcentajeEV,e.av)}}</td>
-								<td ng-style='{color: generateColor(calcularSV(e.pv,e.porcentajeEV))}'>{{calcularSV(e.pv,e.porcentajeEV)}}</td>
-
-								<th>|</th>
-
-								<td ng-style='{color: generateColor2(calcularCPI(e.pv,e.porcentajeEV,e.av))}'>{{calcularCPI(e.pv,e.porcentajeEV,e.av)}}</td>
-								<td ng-style='{color: generateColor2(calcularSPI(e.pv,e.porcentajeEV))}'>{{calcularSPI(e.pv,e.porcentajeEV)}}</td>
-
-							</tr>
-
-						</form>
-
-					</tbody>
-				</table>
-			</div>
+         <input class="form-control inputAdd" placeholder="Insert planned value (PV)" type="number" min="1" max="99999999" ng-model="inputPV" required/>
+         <div class="main-fab">
+  			<md-button class="md-fab md-accent" type="submit"  ng-disabled="EVForm.$invalid" ng-click="insertEV()">+</md-button>
 		</div>
-	</div>
+
+	</form>
+
+</div><!-- Header  -->
+
+<div class="whiteBox" layout="column">
+
+	<table class="table table-hover">
+
+		<thead>
+		      <tr>
+		        <th>Phase</th>
+		        <th>|</th>
+		        <th>PV</th>
+		        <th>AC</th>
+		        <th>EV (%)</th>
+		        <th></th>
+		        <th>|</th>
+		        <th>EV</th>
+		        <th>CV</th>
+		        <th>SV</th>
+		        <th>|</th>
+		        <th>CPI</th>
+		        <th>SPI</th>
+
+		      </tr>
+		</thead>
+		<tbody>
+
+			<form name="Form">
+
+				<tr ng-repeat="e in evs">
+					<td>{{e.fase}}</td>
+
+					<th>|</th>
+
+					<td ng-click="editMode = true">
+					     <span id="e.pv" ng-if="!editMode">{{ e.pv }}</span>
+					     <span ng-if="editMode">
+					        <input class="form-control" type="number submit" ng-disabled="Form.$invalid" string-to-number ng-model="e.pv" maxlength="8" ng-keydown="$event.which === 13 && updateEV(e)"> 
+					     <span>
+					</td>
+
+					<td  ng-click="editMode = true">
+					     <span id="e.av" ng-if="!editMode">{{ e.av }}</span>
+					     <span ng-if="editMode">
+					        <input class="form-control" type="number submit" ng-disabled="Form.$invalid" string-to-number ng-model="e.av" maxlength="8" ng-keydown="$event.which === 13 && updateEV(e)"> 
+					     <span>
+					</td>
+
+					<td  ng-click="editMode = true">
+					     <span id="e.porcentajeEV" ng-if="!editMode">{{ e.porcentajeEV }}</span>
+					     <span ng-if="editMode">
+					        <input class="form-control" type="number submit" ng-disabled="Form.$invalid" string-to-number ng-model="e.porcentajeEV" maxlength="3" max="100" ng-keydown="$event.which === 13 && updateEV(e)"> 
+					     <span>
+					</td>
+
+					<td ng-click="reload()">
+						<span ng-if="editMode" class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+					</td>
+
+					<td>|</td>
+
+					<td>{{calcularEV(e.pv,e.porcentajeEV)}}</td>
+					<td ng-style='{color: generateColor(calcularCV(e.pv,e.porcentajeEV,e.av))}'>{{calcularCV(e.pv,e.porcentajeEV,e.av)}}</td>
+					<td ng-style='{color: generateColor(calcularSV(e.pv,e.porcentajeEV))}'>{{calcularSV(e.pv,e.porcentajeEV)}}</td>
+
+					<th>|</th>
+
+					<td ng-style='{color: generateColor2(calcularCPI(e.pv,e.porcentajeEV,e.av))}'>{{calcularCPI(e.pv,e.porcentajeEV,e.av)}}</td>
+					<td ng-style='{color: generateColor2(calcularSPI(e.pv,e.porcentajeEV))}'>{{calcularSPI(e.pv,e.porcentajeEV)}}</td>
+
+				</tr>
+
+			</form>
+
+		</tbody>
+	</table>
+
 </div>
