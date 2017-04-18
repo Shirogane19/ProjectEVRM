@@ -4,10 +4,6 @@ angular.module('myApp.earnedValue', ['ngStorage'])
 
 .controller('earnedValueViewCtrl', ['$scope','$state','$timeout', '$sce', '$localStorage', function($scope,$state,$timeout,$sce,$localStorage) {
 
-//	$scope.$on("PROJECT_NAME",function(event,obj){
-//		$scope.name = obj;
-//		console.log($scope.name);
-//	});
 	//console.log("Valor Ganado");
 
 	$scope.evs = []; // Coleccion de valores ganados
