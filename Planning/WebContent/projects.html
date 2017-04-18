@@ -1,5 +1,35 @@
 <div ng-controller="ctrl1">
 	<div id="bgimg"> </div>
-	<a class = "btns1 btn btn-default btn-lg" role="button" ui-sref="riskManagementView">Risk Management</a>
-	<a ng-click="validate()" class = "btns2 btn btn-default btn-lg" role="button" ui-sref="earnedView">Earned Value</a> 
+		<div class="project">
+		
+			<br/>
+			<label>Proyecto: </label>
+			<input type="text" ng-model="nuevoProyecto">
+			<button class="btn btn-default" type="submit" ng-click="insertProject(nuevoProyecto)"><i class="fa fa-plus push-5-r"></i>Crear proyecto</button><br/><br/><br/>
+			<label>Buscar: </label>
+			<input type="text" ng-model="busqueda" placeholder="Buscar..."/><br/><br/><br/>
+			<label ng-show="projectRepeat">El proyecto ya existe</label>
+		</div>
+		<div class="tableStyle">
+			<table class="table">
+				<thead>
+					<tr>
+					    <th>Nombre de proyecto(s)</th>
+					</tr>
+				</thead>
+					<tbody>
+						<form name="Form">
+	
+							<tr ng-repeat="p in pjt | filter: busqueda">
+								<td>{{p.name}}<button type="button" ng-click="seleccionar(p.name)" class="btn-default btn selection">Seleccionar</button></td>
+							</tr>
+	
+						</form>
+					</tbody>
+			</table>
+		</div>
+		<div ng-show="evrm">
+			<a class = "btns1 btn btn-default btn-lg" role="button" ui-sref="riskManagementView">Risk Management</a>
+			<a ng-click="validate()" class = "btns2 btn btn-default btn-lg" role="button" ui-sref="earnedView">Earned Value</a>
+		</div>
 </div>

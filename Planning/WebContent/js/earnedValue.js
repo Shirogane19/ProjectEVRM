@@ -1,21 +1,26 @@
 'use strict';
 
-angular.module('myApp.earnedValue', ['ngMaterial'])
+angular.module('myApp.earnedValue', ['ngStorage'])
 
-.controller('earnedValueViewCtrl', ['$scope','$state','$timeout', '$sce', function($scope,$state,$timeout,$sce) {
+.controller('earnedValueViewCtrl', ['$scope','$state','$timeout', '$sce', '$localStorage', function($scope,$state,$timeout,$sce,$localStorage) {
 
+//	$scope.$on("PROJECT_NAME",function(event,obj){
+//		$scope.name = obj;
+//		console.log($scope.name);
+//	});
 	//console.log("Valor Ganado");
 
 	$scope.evs = []; // Coleccion de valores ganados
 	$scope.inputPV; //Valor planeado
 	$scope.faseN; //cantidad de fases en la gestion de valor ganado
+	$scope.name = $localStorage.data; //Recibe el nombre del proyecto seleccionado
 
 	///-------------------------------------------------------------
 	$scope.insertEV = function(){
 
 		//console.log("Insertar");
 
-		var evObject = { fase: $scope.faseN, pv: $scope.inputPV, av: "", porcentajeEV: "", nonbreProyecto: "solo bueno" };
+		var evObject = { fase: $scope.faseN, pv: $scope.inputPV, av: "", porcentajeEV: "", nonbreProyecto: $scope.name };
 
 		EarnedValueDB.insert(evObject, function(data){
 			//console.log(data);
@@ -26,10 +31,8 @@ angular.module('myApp.earnedValue', ['ngMaterial'])
 	}///
 	///-------------------------------------------------------------
 	$scope.getAllEarnedValue = function(){
-
-		//console.log("Get All EV");
-
-		var requestObject = { nombreProyecto: "solo bueno" };
+		
+		var requestObject = { nombreProyecto: $scope.name };
 
 		EarnedValueDB.getCollection(requestObject, function(data){
 			console.log(data);

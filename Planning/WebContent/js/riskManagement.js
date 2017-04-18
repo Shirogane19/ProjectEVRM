@@ -1,9 +1,10 @@
 'use strict';
 
-angular.module('myApp.riskManagement', ['ngMaterial'])
+angular.module('myApp.riskManagement', ['ngStorage'])
 
-.controller('riskManagementViewCtrl', ['$scope','$state','$timeout','$sce', function($scope,$state,$timeout,$sce) {
+.controller('riskManagementViewCtrl', ['$scope','$state','$timeout','$sce','$localStorage', function($scope,$state,$timeout,$sce,$localStorage) {
 	
+	$scope.name = $localStorage.data; //Recibe el nombre del proyecto seleccionado
 	$scope.risks = [];
 	$scope.inputRisk;
 	$scope.numR; //numero de riesgos
