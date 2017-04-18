@@ -8,6 +8,7 @@ angular.module('myApp.riskManagement', ['ngStorage'])
 	$scope.risks = [];
 	$scope.inputRisk;
 	$scope.numR; //numero de riesgos
+	$scope.name = $localStorage.data;
 	
 	 
 	  $scope.slider_toggle = {
@@ -27,7 +28,7 @@ angular.module('myApp.riskManagement', ['ngStorage'])
 	///-------------------------------------------------------------
 	$scope.insertRM = function(){
 
-		var rmObject = { numR: $scope.numR, description: $scope.inputRisk, probability: "99", impact: "3", nameProject: "project 5" };
+		var rmObject = { numR: $scope.numR, description: $scope.inputRisk, probability: "99", impact: "3", nameProject: $scope.name };
 
 		RiskManagementDB.insert(rmObject, function(data){
 			//console.log(data);
@@ -42,7 +43,7 @@ angular.module('myApp.riskManagement', ['ngStorage'])
 
 		console.log("getAllRiskManagement");
 		
-		var requestObject = { nameProject: "project 5" };
+		var requestObject = { nameProject: $scope.name };
 
 		RiskManagementDB.getCollection(requestObject, function(data){
 			
